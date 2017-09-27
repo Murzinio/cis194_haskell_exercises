@@ -1,3 +1,6 @@
+-- http://www.seas.upenn.edu/~cis194/spring13/lectures.html
+
+
 -- validate card number, exercises 1.1-1.4
 
 import Data.Digits
