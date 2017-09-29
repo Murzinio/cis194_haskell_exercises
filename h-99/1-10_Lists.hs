@@ -45,3 +45,50 @@ reverseList (x:xs) = (reverseList xs) ++ [x]
 
 isPalindrome :: Eq a => [a] -> Bool
 isPalindrome x = x == reverseList x
+
+-- Problem 7
+-- Flatten a nested list structure
+-- Transform a list, possibly holding lists as elements into a `flat' list 
+-- by replacing each list with its elements (recursively).
+
+data NestedList a = Elem a 
+                  | List [NestedList a]
+
+flatten :: NestedList a -> [a]
+flatten (List [])       = []
+flatten (Elem x)        = [x]
+flatten (List (x:xs))   = flatten x ++ flatten (List xs)
+
+-- Problem 8
+-- Eliminate consecutive duplicates of list elements.
+-- If a list contains repeated elements they should be replaced
+-- with a single copy of the element. 
+-- The order of the elements should not be changed.
+
+sameAsPrevious:: Eq a => a -> [a] -> Bool
+sameAsPrevious x (y:_) = x == y
+
+compress :: Eq a => [a] -> [a]
+compress []               = []
+compress [x]              = [x]
+compress (x:xs)
+    | sameAsPrevious x xs = compress xs
+    | otherwise           = [x] ++ compress xs
+
+-- Problem 9
+-- Pack consecutive duplicates of list elements into sublists. 
+-- If a list contains repeated elements they should be placed in separate sublists.
+
+pack :: Eq a => [a] -> [[a]]
+pack []     = []
+pack (x:xs) = (x : takeWhile (==x) xs) : pack (dropWhile (==x) xs)
+
+-- Problem 10
+-- Run-length encoding of a list. 
+-- Use the result of problem P09 to implement the so-called run-length encoding data compression method. 
+-- Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+
+encode :: Eq a => [a] -> [(Int, a)]
+encode []   = []
+encode [x] = [(1, x)]
+encode (x:xs) = (1 + getLength (takeWhile (==x) xs), x) : encode (dropWhile (==x) xs)
