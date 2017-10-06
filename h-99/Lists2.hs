@@ -129,3 +129,12 @@ slice :: [a] -> Int -> Int -> [a]
 slice [] _ _ = []
 slice _  0 0 = [] 
 slice xs x y = getListWithoutNTails (getListWithoutNHeads xs (x - 1)) (getLength xs - y)
+
+rotate :: [a] -> Int -> [a]
+rotate [] _ = []
+rotate xs 0 = xs
+rotate xs n
+    | n > 0     = slice xs (n + 1) (getLength xs) 
+                    ++ getHeadNTimes xs n
+    | otherwise = slice xs (getLength xs + (n + 1)) (getLength xs) 
+                    ++ getListWithoutNTails xs (n * (-1))
