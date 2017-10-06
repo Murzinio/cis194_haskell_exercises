@@ -130,6 +130,11 @@ slice [] _ _ = []
 slice _  0 0 = [] 
 slice xs x y = getListWithoutNTails (getListWithoutNHeads xs (x - 1)) (getLength xs - y)
 
+
+
+-- Problem 19
+-- Rotate a list N places to the left.
+
 rotate :: [a] -> Int -> [a]
 rotate [] _ = []
 rotate xs 0 = xs
