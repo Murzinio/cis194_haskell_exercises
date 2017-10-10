@@ -143,3 +143,13 @@ rotate xs n
                     ++ getHeadNTimes xs n
     | otherwise = slice xs (getLength xs + (n + 1)) (getLength xs) 
                     ++ getListWithoutNTails xs (n * (-1))
+
+-- Problem 20
+-- Remove the K'th element from a list.
+
+remove_at :: [a] -> Int -> [a]
+remove_at [] _ = []
+remove_at xs 0 = xs
+remove_at xs n
+    | n > getLength xs = error "List too short."
+    | otherwise       = slice xs 1 (n - 1) ++ slice xs (n + 1) (getLength xs)
